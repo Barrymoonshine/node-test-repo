@@ -1,0 +1,21 @@
+{
+  "name": "test-repo",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "modules.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Barrymoonshine/node-test-repo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Barrymoonshine/node-test-repo/issues"
+  },
+  "homepage": "https://github.com/Barrymoonshine/node-test-repo#readme"
+}
