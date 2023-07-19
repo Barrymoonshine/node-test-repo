@@ -5,4 +5,4 @@ console.log(people);
 
 console.log(ages);
 
-console.log(os);
+console.log(os.platform(), os.homedir());
