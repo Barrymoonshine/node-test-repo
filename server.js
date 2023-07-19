@@ -1,4 +1,5 @@
 import http from "http";
+import fs from "fs";
 
 //Create server - can be stored in variable
 // Server takes in callbck function which runs everytime there is a request into the server
@@ -6,13 +7,18 @@ const server = http.createServer((req, res) => {
   console.log(req.url, req.method);
 
   // Set header content type
-  res.setHeader("Content-Type", "text/plain");
+  res.setHeader("Content-Type", "text/html");
 
   // Send data back to the browser
-  res.write("Hello world this is a node server baby!");
-
+  fs.readFile("./views/index.html", (err, data) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.write(data);
+      res.end();
+    }
+  });
   // Response needs to be ended
-  res.end();
 });
 
 // Server listening for incoming requests
