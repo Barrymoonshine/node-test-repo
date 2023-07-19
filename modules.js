@@ -1,3 +1,5 @@
-import peopleArray from "./people.js";
+import { people, ages } from "./people.js";
 
-console.log(peopleArray);
+console.log(people);
+
+console.log(ages);
