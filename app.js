@@ -1,4 +1,5 @@
 import express from 'express';
+import morgan from 'morgan';
 // import { URL } from 'url';
 
 // Fix for error __dirname is not defined as not available by default in ES module
@@ -15,12 +16,18 @@ app.set('view engine', 'ejs');
 // Listen for requests, local host inferred
 app.listen(3000);
 
-// app.use((req, res) => {
-//   console.log('new request made');
-//   console.log('host', req.host);
-//   console.log('new request made');
-//   console.log('new request made');
-// });
+// Middleware and static files
+app.use(express.static('public'));
+app.use(morgan('dev'));
+
+// Middleware, next to run remaining code after middleware
+app.use((req, res, next) => {
+  console.log('new request made');
+  console.log('host', req.hostname);
+  console.log('path', req.path);
+  console.log('method', req.method);
+  next();
+});
 
 // Two arguments, what path to listen to and req and res objects call back function
 app.get('/', (req, res) => {

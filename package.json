@@ -20,7 +20,8 @@
   "homepage": "https://github.com/Barrymoonshine/node-test-repo#readme",
   "dependencies": {
     "ejs": "^3.1.9",
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "morgan": "^1.10.0"
   },
   "devDependencies": {
     "eslint": "^8.45.0",
