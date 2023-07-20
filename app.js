@@ -21,7 +21,21 @@ app.get('/', (req, res) => {
   // .sendFile looks for absolute path, second argument (object) states the relative root
   // When using views, use the render method and file name minus the extension
   // Render method second parameter is a data object
-  res.render('index', { title: 'home' });
+  const blogs = [
+    {
+      title: "Barry's day at the zoo",
+      snippet: 'Lorem ipsum dolar sit amet consectur',
+    },
+    {
+      title: 'Barry at the supermarket',
+      snippet: 'Lorem ipsum dolar sit amet consectur',
+    },
+    {
+      title: "Barry's big party",
+      snippet: 'Lorem ipsum dolar sit amet consectur',
+    },
+  ];
+  res.render('index', { title: 'home', blogs });
 });
 
 app.get('/about', (req, res) => {
