@@ -1,8 +1,9 @@
 import express from 'express';
-import { URL } from 'url';
+// import { URL } from 'url';
 
 // Fix for error __dirname is not defined as not available by default in ES module
-const __dirname = new URL('.', import.meta.url).pathname;
+// Only needed with .sendFile method
+// const __dirname = new URL('.', import.meta.url).pathname;
 
 // Set up an Express app
 const app = express();
@@ -23,16 +24,16 @@ app.get('/', (req, res) => {
 });
 
 app.get('/about', (req, res) => {
-  res.sendFile('./views/about.html', { root: __dirname });
+  res.render('about');
 });
 
 // Redirects
-app.get('/about-us', (req, res) => {
-  res.redirect('/about');
+app.get('/blogs/create', (req, res) => {
+  res.render('create');
 });
 
 // 404 redirect, middleware, don't need to scope out to URL if code has not matched up to this point
 // Must go at bottom of file and manually add 404 error code
 app.use((req, res) => {
-  res.status(404).sendFile('./views/404.html', { root: __dirname });
+  res.status(404).render('404');
 });
