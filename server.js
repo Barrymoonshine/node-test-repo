@@ -1,5 +1,5 @@
-import http from "http";
-import fs from "fs";
+import http from 'http';
+import fs from 'fs';
 
 //Create server - can be stored in variable
 // Server takes in callbck function which runs everytime there is a request into the server
@@ -7,19 +7,22 @@ const server = http.createServer((req, res) => {
   console.log(req.url, req.method);
 
   // Set header content type
-  res.setHeader("Content-Type", "text/html");
+  res.setHeader('Content-Type', 'text/html');
 
-  let path = "./views/";
+  let path = './views/';
 
   switch (req.url) {
-    case "/":
-      path += "index.html";
+    case '/':
+      path += 'index.html';
+      res.statusCode = 200;
       break;
-    case "/about":
-      path += "about.html";
+    case '/about':
+      path += 'about.html';
+      res.statusCode = 200;
       break;
     default:
-      path += "404.html";
+      path += '404.html';
+      res.statusCode = 404;
       break;
   }
 
@@ -35,6 +38,6 @@ const server = http.createServer((req, res) => {
 });
 
 // Server listening for incoming requests
-server.listen(3000, "localhost", () => {
-  console.log("now we are listening on port 3000!");
+server.listen(3000, 'localhost', () => {
+  console.log('now we are listening on port 3000!');
 });

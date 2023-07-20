@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/Barrymoonshine/node-test-repo/issues"
   },
-  "homepage": "https://github.com/Barrymoonshine/node-test-repo#readme"
+  "homepage": "https://github.com/Barrymoonshine/node-test-repo#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
 }

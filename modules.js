@@ -1,5 +1,5 @@
-import { people, ages } from "./people.js";
-import os from "os";
+import { people, ages } from './people.js';
+import os from 'os';
 
 console.log(people);
 
