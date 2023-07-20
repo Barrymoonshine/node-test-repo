@@ -1,32 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Node repo| <%=title%></title>
-  </head>
+  <%- include('./partials/head.ejs')%>
   <body>
-    <nav>
-        <div class="site-title">
-          <a href="/">Barry's Blog</a>
-          <p>A Barry Moonshine creation</p>
-        </div>
-        <ul>
-          <li><a href="/">Blogs</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/blogs/create">New Blog</a></li>
-        </ul>
-      </nav>
-  
-      <div class="about content">
-        <h2>About me</h2>
-        <p>
-            Geeky glitches, wacky widgets, and tech-tastic tales! Our blog is where nerdy meets absurdity, turning 404 errors into 404 laughs! 😄🔧🤖
-        </p>
-      </div>
-    </body>
+    <%- include('./partials/nav.ejs')%>
 
-
-
+    <div class="about content">
+      <h2>About me</h2>
+      <p>
+        Geeky glitches, wacky widgets, and tech-tastic tales! Our blog is where
+        nerdy meets absurdity, turning 404 errors into 404 laughs! 😄🔧🤖
+      </p>
+    </div>
+    <%- include('./partials/footer.ejs')%>
   </body>
 </html>

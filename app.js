@@ -15,6 +15,13 @@ app.set('view engine', 'ejs');
 // Listen for requests, local host inferred
 app.listen(3000);
 
+// app.use((req, res) => {
+//   console.log('new request made');
+//   console.log('host', req.host);
+//   console.log('new request made');
+//   console.log('new request made');
+// });
+
 // Two arguments, what path to listen to and req and res objects call back function
 app.get('/', (req, res) => {
   // Express method, no need to set header and infers status code (200)

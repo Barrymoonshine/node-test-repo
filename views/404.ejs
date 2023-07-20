@@ -1,31 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Node repo| <%=title%></title>
-  </head>
+    <%- include('./partials/head.ejs')%>
   <body>
-    <nav>
-        <div class="site-title">
-          <a href="/">Barry's Blog</a>
-          <p>A Barry Moonshine creation</p>
-        </div>
-        <ul>
-          <li><a href="/">Blogs</a></li>
-          <li><a href="/about">About</a></li>
-          <li><a href="/blogs/create">New Blog</a></li>
-        </ul>
-      </nav>
+    <%- include('./partials/nav.ejs') %>
   
       <div class="page-not-found content">
         <p>
             ERROR 404 - PAGE NOT FOUND!
         </p>
-     
-    </body>
-
-
-
-  </body>
+        <%- include('./partials/footer.ejs')%>
+    </body>    
 </html>
