@@ -20,20 +20,21 @@ app.get('/', (req, res) => {
   // Express method, no need to set header and infers status code (200)
   // .sendFile looks for absolute path, second argument (object) states the relative root
   // When using views, use the render method and file name minus the extension
-  res.render('index');
+  // Render method second parameter is a data object
+  res.render('index', { title: 'home' });
 });
 
 app.get('/about', (req, res) => {
-  res.render('about');
+  res.render('about', { title: 'about' });
 });
 
 // Redirects
 app.get('/blogs/create', (req, res) => {
-  res.render('create');
+  res.render('create', { title: 'create' });
 });
 
 // 404 redirect, middleware, don't need to scope out to URL if code has not matched up to this point
 // Must go at bottom of file and manually add 404 error code
 app.use((req, res) => {
-  res.status(404).render('404');
+  res.status(404).render('404', { title: '404' });
 });
