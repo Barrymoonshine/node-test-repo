@@ -1,6 +1,8 @@
 import express from 'express';
 import morgan from 'morgan';
 // import { URL } from 'url';
+import mongoose from 'mongoose';
+import mongoAtlasPw from './config.js';
 
 // Fix for error __dirname is not defined as not available by default in ES module
 // Only needed with .sendFile method
@@ -9,12 +11,19 @@ import morgan from 'morgan';
 // Set up an Express app
 const app = express();
 
+// Connect to mongoDB
+const dbURI = `mongodb+srv://barrymoonshine:${mongoAtlasPw}@cluster0.wym9xjg.mongodb.net/?retryWrites=true&w=majority`;
+
+// Async method
+mongoose
+  .connect(dbURI)
+  // Only listen for requests after connecting to database
+  .then((result) => app.listen(3000))
+  .catch((err) => console.log(err));
+
 // Register view engine (EJS), app.set allows configuration of settings
 // Default looks in the views dir
 app.set('view engine', 'ejs');
-
-// Listen for requests, local host inferred
-app.listen(3000);
 
 // Middleware and static files
 app.use(express.static('public'));
