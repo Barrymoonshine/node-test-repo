@@ -94,8 +94,21 @@ app.get('/blogs/:id', (req, res) => {
     });
 });
 
+// Handle delete request from front end script in details
+app.delete('/blogs/:id', (req, res) => {
+  const { id } = req.params;
+  // Method to delete a doc
+  Blog.findByIdAndDelete(id)
+    .then((result) => {
+      res.json({ redirect: '/blogs' });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
 // Redirects
-app.get('/blogs/create', (req, res) => {
+app.get('/create', (req, res) => {
   res.render('create', { title: 'create' });
 });
 
