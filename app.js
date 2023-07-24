@@ -1,20 +1,22 @@
 import express from 'express';
 import morgan from 'morgan';
-// import { URL } from 'url';
 import mongoose from 'mongoose';
+import Blog from './models/blog.js';
 import mongoAtlasPw from './config.js';
+// import { URL } from 'url';
 
 // Fix for error __dirname is not defined as not available by default in ES module
 // Only needed with .sendFile method
 // const __dirname = new URL('.', import.meta.url).pathname;
 
-// Set up an Express app
-const app = express();
-
 // Connect to mongoDB
 const dbURI = `mongodb+srv://barrymoonshine:${mongoAtlasPw}@cluster0.wym9xjg.mongodb.net/?retryWrites=true&w=majority`;
 
+// Set up an Express app
+const app = express();
+
 // Async method
+// Listen for requests, local host inferred
 mongoose
   .connect(dbURI)
   // Only listen for requests after connecting to database
@@ -36,6 +38,22 @@ app.use((req, res, next) => {
   console.log('path', req.path);
   console.log('method', req.method);
   next();
+});
+
+app.get('/add-blog', (req, res) => {
+  const blog = new Blog({
+    title: "Barry's new blog",
+    snippet: 'The most exciting blog there is',
+    body: 'Woo hoo this blog is super exciting my friends!',
+  });
+  blog
+    .save()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 // Two arguments, what path to listen to and req and res objects call back function
