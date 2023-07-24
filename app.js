@@ -1,6 +1,7 @@
 import express from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
+import { render } from 'ejs';
 import Blog from './models/blog.js';
 import mongoAtlasPw from './config.js';
 // import { URL } from 'url';
@@ -75,6 +76,18 @@ app.post('/blogs', (req, res) => {
     .save()
     .then((result) => {
       res.redirect('/blogs');
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+// Handle blog url anchor route parameters
+app.get('/blogs/:id', (req, res) => {
+  const { id } = req.params;
+  Blog.findById(id)
+    .then((result) => {
+      res.render('details', { blog: result, title: 'Blog Details' });
     })
     .catch((err) => {
       console.log(err);
