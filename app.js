@@ -40,73 +40,28 @@ app.use((req, res, next) => {
   next();
 });
 
-// Save new blog to collection
-app.get('/add-blog', (req, res) => {
-  const blog = new Blog({
-    title: "Barry's new blog 2",
-    snippet: 'The most exciting blog there is',
-    body: 'Woo hoo this blog is super exciting my friends!',
-  });
-  // .save method is async
-  blog
-    .save()
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-// Retrieve all blogs from collection
-app.get('/all-blogs', (req, res) => {
-  // .find is async and gets all docs from the collection
-  Blog.find()
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-// Retrieve a single blog/document
-app.get('/single-blog', (req, res) => {
-  // Mongoose handles conversion into Object ID to compare with Mongo DB, async
-  Blog.findById('64be3aa58d6d9f6175fcd030')
-    .then((result) => {
-      res.send(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
 // Two arguments, what path to listen to and req and res objects call back function
 app.get('/', (req, res) => {
   // Express method, no need to set header and infers status code (200)
   // .sendFile looks for absolute path, second argument (object) states the relative root
   // When using views, use the render method and file name minus the extension
   // Render method second parameter is a data object
-  const blogs = [
-    {
-      title: "Barry's day at the zoo",
-      snippet: 'Lorem ipsum dolar sit amet consectur',
-    },
-    {
-      title: 'Barry at the supermarket',
-      snippet: 'Lorem ipsum dolar sit amet consectur',
-    },
-    {
-      title: "Barry's big party",
-      snippet: 'Lorem ipsum dolar sit amet consectur',
-    },
-  ];
-  res.render('index', { title: 'home', blogs });
+  res.redirect('/blogs');
 });
 
 app.get('/about', (req, res) => {
   res.render('about', { title: 'about' });
+});
+
+// Blog routes
+app.get('/blogs', (req, res) => {
+  Blog.find()
+    .then((result) => {
+      res.render('index', { title: 'all blogs', blogs: result });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 // Redirects
