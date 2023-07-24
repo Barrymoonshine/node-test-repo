@@ -32,6 +32,8 @@ app.use(express.static('public'));
 app.use(morgan('dev'));
 
 // Middleware, next to run remaining code after middleware
+// Takes URL encoded POST data and encoded it onto the req object
+app.use(express.urlencoded({ extended: true }));
 app.use((req, res, next) => {
   console.log('new request made');
   console.log('host', req.hostname);
@@ -55,9 +57,24 @@ app.get('/about', (req, res) => {
 
 // Blog routes
 app.get('/blogs', (req, res) => {
+  // sort in descending order
   Blog.find()
+    .sort({ createdAt: -1 })
     .then((result) => {
       res.render('index', { title: 'all blogs', blogs: result });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+// Post handler, gets encoded data from the req object
+app.post('/blogs', (req, res) => {
+  const blog = new Blog(req.body);
+  blog
+    .save()
+    .then((result) => {
+      res.redirect('/blogs');
     })
     .catch((err) => {
       console.log(err);
