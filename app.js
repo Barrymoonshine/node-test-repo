@@ -40,14 +40,40 @@ app.use((req, res, next) => {
   next();
 });
 
+// Save new blog to collection
 app.get('/add-blog', (req, res) => {
   const blog = new Blog({
-    title: "Barry's new blog",
+    title: "Barry's new blog 2",
     snippet: 'The most exciting blog there is',
     body: 'Woo hoo this blog is super exciting my friends!',
   });
+  // .save method is async
   blog
     .save()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+// Retrieve all blogs from collection
+app.get('/all-blogs', (req, res) => {
+  // .find is async and gets all docs from the collection
+  Blog.find()
+    .then((result) => {
+      res.send(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
+
+// Retrieve a single blog/document
+app.get('/single-blog', (req, res) => {
+  // Mongoose handles conversion into Object ID to compare with Mongo DB, async
+  Blog.findById('64be3aa58d6d9f6175fcd030')
     .then((result) => {
       res.send(result);
     })
