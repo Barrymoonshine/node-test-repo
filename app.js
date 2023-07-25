@@ -2,8 +2,8 @@ import express from 'express';
 import morgan from 'morgan';
 import mongoose from 'mongoose';
 import { render } from 'ejs';
-import Blog from './models/blog.js';
 import mongoAtlasPw from './config.js';
+import blogRoutes from './routes/blogRoutes.js';
 // import { URL } from 'url';
 
 // Fix for error __dirname is not defined as not available by default in ES module
@@ -56,61 +56,12 @@ app.get('/about', (req, res) => {
   res.render('about', { title: 'about' });
 });
 
-// Blog routes
-app.get('/blogs', (req, res) => {
-  // sort in descending order
-  Blog.find()
-    .sort({ createdAt: -1 })
-    .then((result) => {
-      res.render('index', { title: 'all blogs', blogs: result });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-// Post handler, gets encoded data from the req object
-app.post('/blogs', (req, res) => {
-  const blog = new Blog(req.body);
-  blog
-    .save()
-    .then((result) => {
-      res.redirect('/blogs');
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-// Handle blog url anchor route parameters
-app.get('/blogs/:id', (req, res) => {
-  const { id } = req.params;
-  Blog.findById(id)
-    .then((result) => {
-      res.render('details', { blog: result, title: 'Blog Details' });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-// Handle delete request from front end script in details
-app.delete('/blogs/:id', (req, res) => {
-  const { id } = req.params;
-  // Method to delete a doc
-  Blog.findByIdAndDelete(id)
-    .then((result) => {
-      res.json({ redirect: '/blogs' });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-});
-
-// Redirects
 app.get('/create', (req, res) => {
   res.render('create', { title: 'create' });
 });
+
+// Blog routes, use middleware keyword to use imported blogRoutes
+app.use(blogRoutes);
 
 // 404 redirect, middleware, don't need to scope out to URL if code has not matched up to this point
 // Must go at bottom of file and manually add 404 error code
