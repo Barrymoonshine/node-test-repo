@@ -61,7 +61,7 @@ app.get('/create', (req, res) => {
 });
 
 // Blog routes, use middleware keyword to use imported blogRoutes
-app.use(blogRoutes);
+app.use('/blogs', blogRoutes);
 
 // 404 redirect, middleware, don't need to scope out to URL if code has not matched up to this point
 // Must go at bottom of file and manually add 404 error code

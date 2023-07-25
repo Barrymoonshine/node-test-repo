@@ -5,7 +5,7 @@ import Blog from '../models/blog.js';
 const blogRoutes = express.Router();
 
 // Blog routes
-blogRoutes.get('/blogs', (req, res) => {
+blogRoutes.get('/', (req, res) => {
   // sort in descending order
   Blog.find()
     .sort({ createdAt: -1 })
@@ -18,7 +18,7 @@ blogRoutes.get('/blogs', (req, res) => {
 });
 
 // Post handler, gets encoded data from the req object
-blogRoutes.post('/blogs', (req, res) => {
+blogRoutes.post('/', (req, res) => {
   const blog = new Blog(req.body);
   blog
     .save()
@@ -31,7 +31,7 @@ blogRoutes.post('/blogs', (req, res) => {
 });
 
 // Handle blog url anchor route parameters
-blogRoutes.get('/blogs/:id', (req, res) => {
+blogRoutes.get('/:id', (req, res) => {
   const { id } = req.params;
   Blog.findById(id)
     .then((result) => {
@@ -43,7 +43,7 @@ blogRoutes.get('/blogs/:id', (req, res) => {
 });
 
 // Handle delete request from front end script in details
-blogRoutes.delete('/blogs/:id', (req, res) => {
+blogRoutes.delete('/:id', (req, res) => {
   const { id } = req.params;
   // Method to delete a doc
   Blog.findByIdAndDelete(id)
